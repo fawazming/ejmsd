@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EJMSD — Elicit Journal of Medical Science and Discovery</title>
+<meta name="description" content="Browse every issue, archive and paper published in the Elicit Journal of Medical Science and Discovery (EJMSD), an open-access, peer-reviewed medical journal.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#07123f;
+    --navy-2:#0c1d63;
+    --blue:#1428a8;
+    --blue-soft:#eef1ff;
+    --green:#17b23f;
+    --green-dark:#0c8c2d;
+    --green-soft:#e8f8ec;
+    --paper:#f6f8fc;
+    --white:#ffffff;
+    --ink:#0d1730;
+    --muted:#5a6784;
+    --line:#e1e7f2;
+    --radius:20px;
+    --shadow:0 24px 60px -30px rgba(7,18,63,.45);
+    --maxw:1160px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3,h4{font-family:"Fraunces",Georgia,"Times New Roman",serif;font-weight:500;line-height:1.15;letter-spacing:-.015em;margin:0}
+  p{margin:0}
+  .wrap{width:min(var(--maxw),calc(100% - 48px));margin-inline:auto}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--white);color:var(--navy);padding:12px 18px;z-index:100;border-radius:0 0 10px 0}
+  .skip:focus{left:0}
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{display:flex;align-items:center;gap:28px;min-height:82px}
+  .brand{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0}
+  .brand img{height:58px;width:auto}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1}
+  .brand-name{font-family:"Fraunces",Georgia,serif;font-size:20px;letter-spacing:-.02em;color:var(--navy)}
+  .brand-sub{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  .nav{margin-left:auto;display:flex;align-items:center;gap:4px}
+  .nav a{
+    text-decoration:none;color:var(--ink);font-size:14.5px;font-weight:500;
+    padding:9px 13px;border-radius:9px;transition:.18s ease;
+  }
+  .nav a:hover{background:var(--blue-soft);color:var(--blue)}
+  .header-cta{
+    margin-left:8px;text-decoration:none;font-size:14px;font-weight:600;
+    color:var(--white);background:var(--navy);
+    padding:11px 20px;border-radius:999px;transition:.18s ease;white-space:nowrap;
+  }
+  .header-cta:hover{background:var(--blue);transform:translateY(-1px)}
+  .nav-toggle{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:13px;font-weight:600;color:var(--navy);cursor:pointer}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;color:var(--white);
+    background:
+      radial-gradient(900px 460px at 88% 12%, rgba(23,178,63,.22), transparent 65%),
+      radial-gradient(720px 480px at 8% 92%, rgba(20,40,168,.55), transparent 70%),
+      linear-gradient(128deg,#060f33 0%,#091a52 52%,#0b2166 100%);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(70% 70% at 60% 40%,#000 20%,transparent 100%);
+  }
+  .hero-inner{
+    position:relative;display:grid;grid-template-columns:1.25fr .75fr;
+    gap:56px;align-items:center;padding:82px 0 96px;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:#b9f5c6;background:rgba(23,178,63,.16);
+    border:1px solid rgba(23,178,63,.38);
+    padding:7px 13px;border-radius:999px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(23,178,63,.18)}
+  .hero h1{
+    font-size:clamp(38px,4.6vw,62px);margin:22px 0 18px;color:#fff;
+    letter-spacing:-.025em;max-width:14ch;
+  }
+  .hero h1 em{font-style:normal;color:#7fe89a}
+  .hero-lead{max-width:56ch;color:#c5cfe8;font-size:16.5px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .chip{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:12.5px;font-weight:500;color:#dbe3f6;
+    border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 13px;
+  }
+  .chip svg{width:13px;height:13px;stroke:#7fe89a;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+    font-size:14.5px;font-weight:600;padding:13px 22px;border-radius:999px;
+    transition:.18s ease;
+  }
+  .btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .btn-primary{background:var(--green);color:#04210c}
+  .btn-primary:hover{background:#2bd456;transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(23,178,63,.75)}
+  .btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.28)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5)}
+
+  .hero-visual{position:relative;justify-self:center;width:100%;max-width:330px}
+  .hero-cover{
+    position:relative;border-radius:14px;overflow:hidden;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.18);
+    transform:rotate(1.6deg);
+    background:#fff;
+  }
+  .hero-cover img{width:100%;aspect-ratio:1/1.414;object-fit:cover}
+  .hero-badge{
+    position:absolute;left:50%;bottom:-18px;transform:translateX(-50%) rotate(-1.6deg);
+    background:var(--white);color:var(--navy);
+    border-radius:10px;padding:10px 18px;white-space:nowrap;
+    font-size:12px;font-weight:600;letter-spacing:.02em;
+    box-shadow:0 18px 40px -18px rgba(0,0,0,.55);
+    display:flex;align-items:center;gap:8px;
+  }
+  .hero-badge span{width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+  /* ---------- Stats ---------- */
+  .stats{
+    position:relative;z-index:2;
+    margin-top:-38px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    overflow:hidden;
+  }
+  .stat{padding:24px 28px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0}
+  .stat b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:30px;color:var(--navy);line-height:1}
+  .stat span{display:block;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+  /* ---------- Sections ---------- */
+  .section{padding:76px 0 0}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:30px}
+  .kicker{
+    display:block;font-size:11px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--green-dark);margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(28px,3.2vw,40px);color:var(--navy);letter-spacing:-.02em}
+  .section-head p{color:var(--muted);font-size:14.5px;max-width:46ch;margin-top:8px}
+  .text-link{
+    display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+    font-size:13.5px;font-weight:600;color:var(--blue);white-space:nowrap;
+    border-bottom:1px solid rgba(20,40,168,.25);padding-bottom:3px;
+  }
+  .text-link:hover{border-color:var(--blue)}
+  .text-link svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- Current issue ---------- */
+  .current-card{
+    display:grid;grid-template-columns:250px 1fr;
+    background:var(--white);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+  }
+  .current-cover{position:relative;background:#eef1f8;min-height:100%}
+  .current-cover img{width:100%;height:100%;object-fit:cover}
+  .current-cover .tag{
+    position:absolute;top:14px;left:14px;background:var(--green);color:#04210c;
+    font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    padding:6px 10px;border-radius:999px;
+  }
+  .current-body{padding:32px 36px 30px}
+  .current-eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+  .current-body h3{font-size:clamp(22px,2.4vw,30px);color:var(--navy);margin:8px 0 10px}
+  .current-sub{display:flex;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:13px;margin-bottom:22px}
+  .current-sub span{display:inline-flex;align-items:center;gap:6px}
+  .current-sub svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .mini-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .mini-list li{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--line)}
+  .mini-list li:last-child{border-bottom:0;padding-bottom:0}
+  .mini-num{
+    flex-shrink:0;width:26px;height:26px;border-radius:7px;background:var(--green-soft);
+    color:var(--green-dark);font-size:11px;font-weight:700;
+    display:grid;place-items:center;margin-top:2px;
+  }
+  .mini-title{font-size:14.5px;font-weight:600;color:var(--navy);text-decoration:none;line-height:1.4}
+  .mini-title:hover{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+  .mini-authors{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.45}
+  .mini-link{
+    margin-left:auto;flex-shrink:0;text-decoration:none;font-size:11px;font-weight:700;
+    letter-spacing:.06em;color:var(--blue);background:var(--blue-soft);
+    border-radius:7px;padding:7px 11px;transition:.15s ease;
+  }
+  .mini-link:hover{background:var(--blue);color:#fff}
+
+  /* ---------- Archive controls ---------- */
+  .archive-toolbar{
+    background:var(--white);border:1px solid var(--line);border-radius:16px;
+    padding:16px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .search-field{position:relative;flex:1;min-width:230px}
+  .search-field svg{
+    position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:1.9;stroke-linecap:round;
+  }
+  .search-field input{
+    width:100%;border:1px solid var(--line);background:var(--paper);
+    border-radius:10px;padding:12px 14px 12px 42px;
+    font-family:inherit;font-size:14px;color:var(--ink);outline:none;transition:.18s;
+  }
+  .search-field input:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(20,40,168,.09)}
+  .year-filters{display:flex;gap:6px}
+  .year-filters button{
+    font-family:inherit;font-size:12.5px;font-weight:600;color:var(--muted);
+    background:transparent;border:1px solid transparent;border-radius:999px;
+    padding:8px 14px;cursor:pointer;transition:.15s ease;
+  }
+  .year-filters button:hover{background:var(--paper);color:var(--navy)}
+  .year-filters button[aria-pressed="true"]{background:var(--navy);color:#fff}
+  .result-count{font-size:12.5px;color:var(--muted);margin-left:auto;white-space:nowrap}
+  .result-count b{color:var(--navy)}
+
+  /* ---------- Year groups & issue cards ---------- */
+  .year-group{margin-bottom:36px}
+  .year-heading{
+    display:flex;align-items:center;gap:14px;margin:0 0 16px;
+  }
+  .year-heading h3{font-size:14px;font-family:"Inter",sans-serif;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+  .year-heading::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .issue-card{
+    display:grid;grid-template-columns:210px 1fr;
+    background:var(--white);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;margin-bottom:20px;
+    transition:.22s ease;
+  }
+  .issue-card:hover{box-shadow:var(--shadow);border-color:#cfd8ea}
+  .issue-aside{
+    background:linear-gradient(160deg,#eef2fa,#e5ebf7);
+    padding:22px;display:flex;flex-direction:column;gap:14px;border-right:1px solid var(--line);
+  }
+  .issue-aside .cover{
+    border-radius:9px;overflow:hidden;background:#fff;
+    box-shadow:0 14px 30px -16px rgba(7,18,63,.5);
+    aspect-ratio:1/1.414;
+  }
+  .issue-aside .cover img{width:100%;height:100%;object-fit:cover}
+  .issue-aside .cover.placeholder{
+    display:grid;place-items:center;background:linear-gradient(155deg,#0b1c62,#07123f);
+  }
+  .issue-aside .cover.placeholder img{width:62%;height:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.92}
+  .issue-label{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--blue)}
+  .issue-vol{font-size:13px;color:var(--muted);margin-top:2px}
+  .issue-view{
+    margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    text-decoration:none;font-size:12px;font-weight:600;color:var(--navy);
+    background:#fff;border:1px solid #d4ddec;border-radius:8px;padding:9px 10px;
+  }
+  .issue-view:hover{border-color:var(--navy)}
+  .issue-view svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  .issue-main{padding:26px 30px 24px;min-width:0}
+  .issue-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:6px}
+  .issue-top h3{font-size:clamp(19px,2vw,24px);color:var(--navy);max-width:30ch}
+  .issue-date{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:var(--paper);border-radius:999px;padding:6px 11px}
+  .issue-date svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .issue-count{font-size:11.5px;color:var(--muted);margin:12px 0 4px}
+
+  .paper-list{list-style:none;margin:0;padding:0}
+  .paper{
+    display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:start;
+    padding:16px 0;border-bottom:1px solid var(--line);
+  }
+  .paper:last-child{border-bottom:0;padding-bottom:2px}
+  .paper[hidden]{display:none}
+  .paper-num{
+    font-family:"Fraunces",Georgia,serif;font-size:15px;color:#a3aec5;
+    padding-top:1px;
+  }
+  .paper-title{
+    text-decoration:none;color:var(--navy);font-size:15px;font-weight:600;
+    line-height:1.45;display:inline;
+  }
+  .paper-title:hover{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+  .paper-authors{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+  .paper-meta{display:flex;gap:14px;margin-top:8px;font-size:11.5px;color:#7b87a0}
+  .paper-meta span{display:inline-flex;align-items:center;gap:5px}
+  .paper-meta span::before{content:"";width:3px;height:3px;border-radius:50%;background:#b8c2d6}
+  .paper-meta span:first-child::before{display:none}
+  .pdf-btn{
+    display:inline-flex;align-items:center;gap:6px;text-decoration:none;flex-shrink:0;
+    font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--green-dark);
+    background:var(--green-soft);border:1px solid #cdeed6;border-radius:8px;
+    padding:7px 11px;margin-top:2px;transition:.15s ease;
+  }
+  .pdf-btn:hover{background:var(--green);border-color:var(--green);color:#04210c}
+  .pdf-btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  .empty{
+    text-align:center;padding:56px 24px;background:var(--white);
+    border:1px dashed #c9d3e5;border-radius:var(--radius);color:var(--muted);
+  }
+  .empty strong{display:block;font-family:"Fraunces",Georgia,serif;font-size:22px;color:var(--navy);margin-bottom:6px}
+
+  /* ---------- About ---------- */
+  .about-band{margin-top:76px}
+  .about-card{
+    display:grid;grid-template-columns:.9fr 1.1fr;gap:0;
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:var(--shadow);
+  }
+  .about-media{position:relative;min-height:420px;background:#dde5f3}
+  .about-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .about-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(7,18,63,.55))}
+  .about-media .quote{
+    position:absolute;left:26px;right:26px;bottom:24px;z-index:1;color:#fff;
+    font-family:"Fraunces",Georgia,serif;font-size:19px;line-height:1.35;
+  }
+  .about-body{padding:40px 44px}
+  .about-body h2{font-size:clamp(26px,3vw,34px);color:var(--navy);margin-bottom:14px}
+  .about-body p{color:var(--muted);font-size:14.5px;margin-bottom:14px;line-height:1.7}
+  .about-body strong{color:var(--ink)}
+  .scope{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .scope span{
+    font-size:11.5px;font-weight:500;color:var(--navy);background:var(--paper);
+    border:1px solid var(--line);border-radius:999px;padding:6px 12px;
+  }
+  .about-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+
+  /* ---------- Footer ---------- */
+  .footer{margin-top:84px;background:var(--navy);color:#b9c4dd;position:relative;overflow:hidden}
+  .footer::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(600px 300px at 90% 0%,rgba(23,178,63,.18),transparent 70%);
+    pointer-events:none;
+  }
+  .footer-inner{position:relative;padding:58px 0 0}
+  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:42px;padding-bottom:44px}
+  .footer .brand img{height:60px;background:#fff;border-radius:10px;padding:7px 10px;width:auto}
+  .footer .brand{margin-bottom:16px}
+  .footer-about{font-size:13px;line-height:1.7;max-width:34ch;color:#9faccb}
+  .footer h4{font-family:"Inter",sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+  .footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .footer ul a{text-decoration:none;font-size:13px;color:#aab6d2;transition:.15s}
+  .footer ul a:hover{color:#7fe89a}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    padding:20px 0 26px;font-size:12px;color:#8d9ac0;
+  }
+  .footer-bottom a{color:#b9c4dd;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2)}
+  .footer-bottom a:hover{color:#fff}
+  .footer-note{display:inline-flex;align-items:center;gap:7px}
+  .footer-note span{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:980px){
+    .hero-inner{grid-template-columns:1fr;gap:48px;padding:60px 0 80px}
+    .hero-visual{justify-self:start;max-width:270px}
+    .hero h1{max-width:18ch}
+    .header-cta{display:none}
+    .current-card{grid-template-columns:190px 1fr}
+    .issue-card{grid-template-columns:170px 1fr}
+    .about-card{grid-template-columns:1fr}
+    .about-media{min-height:300px}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  }
+  @media (max-width:760px){
+    .wrap{width:calc(100% - 32px)}
+    .hero-inner{padding:46px 0 64px;gap:38px}
+    .hero-visual{max-width:190px;justify-self:start}
+    .hero-badge{font-size:11px;padding:8px 14px;bottom:-14px}
+    .current-cover{max-height:280px}
+    .nav{display:none}
+    .nav.open{display:flex;position:absolute;top:82px;left:16px;right:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;flex-direction:column;align-items:stretch;box-shadow:var(--shadow)}
+    .nav.open a{padding:12px}
+    .nav-toggle{display:block}
+    .brand-name{font-size:17px}
+    .brand-sub{font-size:9px}
+    .brand img{height:48px}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat{border-right:0;border-bottom:1px solid var(--line);padding:18px 20px}
+    .stat:nth-child(odd){border-right:1px solid var(--line)}
+    .stat:nth-child(3),.stat:nth-child(4){border-bottom:0}
+    .current-card{grid-template-columns:1fr}
+    .current-cover{max-height:340px;overflow:hidden}
+    .current-body{padding:24px}
+    .issue-card{grid-template-columns:1fr}
+    .issue-aside{flex-direction:row;align-items:center;border-right:0;border-bottom:1px solid var(--line);padding:16px}
+    .issue-aside .cover{width:74px;flex-shrink:0}
+    .issue-aside .issue-view{margin:0 0 0 auto}
+    .issue-main{padding:22px 20px}
+    .paper{grid-template-columns:26px 1fr;gap:10px}
+    .pdf-btn{grid-column:2;justify-self:start;margin-top:2px}
+    .about-body{padding:28px 24px}
+    .section{padding-top:58px}
+    .archive-toolbar{padding:14px}
+    .result-count{margin-left:0;width:100%}
+    .footer-grid{grid-template-columns:1fr}
+    .footer-inner{padding-top:44px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="EJMSD home">
+      <img src="assets/logo.png" alt="Elicit Journal of Medical Science and Discovery logo">
+      <span class="brand-text">
+        <span class="brand-name">EJMSD</span>
+        <span class="brand-sub">Medical Science &amp; Discovery</span>
+      </span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+    <nav class="nav" id="primaryNav" aria-label="Primary">
+      <a href="#current">Current issue</a>
+      <a href="#archive">Archives</a>
+      <a href="#about">About</a>
+      <a href="https://journal.elicitpublisher.com/index.php/ejmsd/about/editorialMasthead" target="_blank" rel="noopener">Editorial board</a>
+      <a class="header-cta" href="https://journal.elicitpublisher.com/index.php/ejmsd/about/submissions" target="_blank" rel="noopener">Submit a manuscript</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow">Open access · Peer reviewed · Since 2025</span>
+        <h1>Elicit Journal of <em>Medical Science</em> and Discovery</h1>
+        <p class="hero-lead">
+          A multidisciplinary, open-access forum advancing evidence-based practice across clinical
+          medicine, biomedical science, public health and translational research — published by
+          Elicit Publishing Limited.
+        </p>
+        <div class="hero-meta">
+          <span class="chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg>
+            Open access
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            Rigorous peer review
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>
+            Global readership
+          </span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#current">
+            Read the current issue
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#archive">Browse all archives</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-cover">
+          <img src="assets/cover-2026-2.jpg" alt="Cover of Vol. 2 No. 2 (2026)">
+        </div>
+        <div class="hero-badge"><span></span> Latest · Vol. 2 No. 2 · 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <div class="wrap">
+    <div class="stats" aria-label="Journal at a glance">
+      <div class="stat"><b>3</b><span>Issues published</span></div>
+      <div class="stat"><b>6</b><span>Peer-reviewed papers</span></div>
+      <div class="stat"><b>2</b><span>Volumes</span></div>
+      <div class="stat"><b>100%</b><span>Free to read</span></div>
+    </div>
+  </div>
+
+  <!-- ================= CURRENT ISSUE ================= -->
+  <section class="section" id="current">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Latest publication</span>
+          <h2>Current issue</h2>
+          <p>The newest research from EJMSD, published July 2026.</p>
+        </div>
+        <a class="text-link" href="https://journal.elicitpublisher.com/index.php/ejmsd/issue/current" target="_blank" rel="noopener">
+          View on journal site
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+      </div>
+
+      <article class="current-card">
+        <div class="current-cover">
+          <span class="tag">Current</span>
+          <img src="assets/cover-2026-2.jpg" alt="Cover of Vol. 2 No. 2 (2026)">
+        </div>
+        <div class="current-body">
+          <span class="current-eyebrow">Vol. 2 · No. 2 · 2026</span>
+          <h3>Elicit Journal of Medical Science and Discovery (EJMSD)</h3>
+          <div class="current-sub">
+            <span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+              Published 1 July 2026
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V6a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg>
+              2 articles
+            </span>
+          </div>
+
+          <ul class="mini-list">
+            <li>
+              <span class="mini-num">01</span>
+              <div>
+                <a class="mini-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/120" target="_blank" rel="noopener">
+                  The Promise and Pitfalls: A Systematic Review of AI-Powered Diagnostics in Modern Oncology
+                </a>
+                <p class="mini-authors">Akeem Moradehun Bamiro, Lateef Adebisi Odukoya, Ridwan Oladotun Ahmed, Hafeez Abiola Afolabi, Sameer Badri Al-Mhanna, Marwan Arkan Ghafoor, Yusuf Wada · pp. 17–36</p>
+              </div>
+              <a class="mini-link" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/120/109" target="_blank" rel="noopener" aria-label="Download PDF">PDF</a>
+            </li>
+            <li>
+              <span class="mini-num">02</span>
+              <div>
+                <a class="mini-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/242" target="_blank" rel="noopener">
+                  Wearable Biosensors for Remote Monitoring and Early Detection of Cardiovascular Diseases: A Systematic Literature Review
+                </a>
+                <p class="mini-authors">Wasiu Badru, Hafeez Afolabi, Rashidat Elesho, Abdirahman Hussein Elmi, Aliyah Opemipo Shittu, Mariam Taiwo Oshodi · pp. 1–16</p>
+              </div>
+              <a class="mini-link" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/242/108" target="_blank" rel="noopener" aria-label="Download PDF">PDF</a>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= ARCHIVE ================= -->
+  <section class="section" id="archive">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Every paper, every issue</span>
+          <h2>Issues &amp; archive</h2>
+          <p>All six published papers, grouped by issue. Search by title or author, or filter by year.</p>
+        </div>
+        <a class="text-link" href="https://journal.elicitpublisher.com/index.php/ejmsd/issue/archive" target="_blank" rel="noopener">
+          Official archive
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+      </div>
+
+      <div class="archive-toolbar">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="searchInput" type="search" placeholder="Search papers by title or author…" autocomplete="off" aria-label="Search papers by title or author">
+        </div>
+        <div class="year-filters" role="group" aria-label="Filter by year">
+          <button type="button" data-year="all" aria-pressed="true">All years</button>
+          <button type="button" data-year="2026" aria-pressed="false">2026</button>
+          <button type="button" data-year="2025" aria-pressed="false">2025</button>
+        </div>
+        <p class="result-count" role="status" aria-live="polite">Showing <b id="shownCount">6</b> of 6 papers</p>
+      </div>
+
+      <!-- 2026 -->
+      <div class="year-group" data-year="2026">
+        <div class="year-heading"><h3>2026</h3></div>
+
+        <!-- Vol 2 No 2 -->
+        <article class="issue-card" data-year="2026">
+          <aside class="issue-aside">
+            <div class="cover"><img src="assets/cover-2026-2.jpg" alt="Cover of Vol. 2 No. 2 (2026)"></div>
+            <div>
+              <span class="issue-label">Vol. 2 · No. 2</span>
+              <div class="issue-vol">July 2026</div>
+            </div>
+            <a class="issue-view" href="https://journal.elicitpublisher.com/index.php/ejmsd/issue/view/14" target="_blank" rel="noopener">
+              View issue
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </aside>
+          <div class="issue-main">
+            <div class="issue-top">
+              <h3>Elicit Journal of Medical Science and Discovery (EJMSD)</h3>
+              <span class="issue-date">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+                1 Jul 2026
+              </span>
+            </div>
+            <p class="issue-count">2 articles</p>
+            <ul class="paper-list">
+              <li class="paper" data-search="the promise and pitfalls a systematic review of ai-powered diagnostics in modern oncology akeem moradehun bamiro lateef adebisi odukoya ridwan oladotun ahmed hafeez abiola afolabi sameer badri al-mhanna marwan arkan ghafoor yusuf wada">
+                <span class="paper-num">01</span>
+                <div>
+                  <a class="paper-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/120" target="_blank" rel="noopener">The Promise and Pitfalls: A Systematic Review of AI-Powered Diagnostics in Modern Oncology</a>
+                  <p class="paper-authors">Akeem Moradehun Bamiro, Lateef Adebisi Odukoya, Ridwan Oladotun Ahmed, Hafeez Abiola Afolabi, Sameer Badri Al-Mhanna, Marwan Arkan Ghafoor, Yusuf Wada</p>
+                  <div class="paper-meta"><span>Pages 17–36</span><span>Vol. 2, No. 2</span></div>
+                </div>
+                <a class="pdf-btn" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/120/109" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+                  PDF
+                </a>
+              </li>
+              <li class="paper" data-search="wearable biosensors for remote monitoring and early detection of cardiovascular diseases a systematic literature review wasiu badru hafeez afolabi rashidat elesho abdirahman hussein elmi aliyah opemipo shittu mariam taiwo oshodi">
+                <span class="paper-num">02</span>
+                <div>
+                  <a class="paper-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/242" target="_blank" rel="noopener">Wearable Biosensors for Remote Monitoring and Early Detection of Cardiovascular Diseases: A Systematic Literature Review</a>
+                  <p class="paper-authors">Wasiu Badru, Hafeez Afolabi, Rashidat Elesho, Abdirahman Hussein Elmi, Aliyah Opemipo Shittu, Mariam Taiwo Oshodi</p>
+                  <div class="paper-meta"><span>Pages 1–16</span><span>Vol. 2, No. 2</span></div>
+                </div>
+                <a class="pdf-btn" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/242/108" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+                  PDF
+                </a>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Vol 2 No 1 -->
+        <article class="issue-card" data-year="2026">
+          <aside class="issue-aside">
+            <div class="cover"><img src="assets/cover-2026-1.jpg" alt="Cover of Vol. 2 No. 1 (2026)"></div>
+            <div>
+              <span class="issue-label">Vol. 2 · No. 1</span>
+              <div class="issue-vol">January 2026</div>
+            </div>
+            <a class="issue-view" href="https://journal.elicitpublisher.com/index.php/ejmsd/issue/view/12" target="_blank" rel="noopener">
+              View issue
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </aside>
+          <div class="issue-main">
+            <div class="issue-top">
+              <h3>Elicit Journal of Medical Science and Discovery (EJMSD)</h3>
+              <span class="issue-date">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+                1 Jan 2026
+              </span>
+            </div>
+            <p class="issue-count">3 articles</p>
+            <ul class="paper-list">
+              <li class="paper" data-search="relationship between nurse burnout and nurses perceptual evaluation of the quality of patient care in outpatient departments of federal teaching hospital lokoja kogi state abiodun samuel olowolafe ojone mercy onate">
+                <span class="paper-num">01</span>
+                <div>
+                  <a class="paper-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/118" target="_blank" rel="noopener">Relationship Between Nurse Burnout and Nurses’ Perceptual Evaluation of the Quality of Patient Care in Outpatient Departments of Federal Teaching Hospital Lokoja, Kogi State</a>
+                  <p class="paper-authors">Abiodun Samuel Olowolafe, Ojone Mercy Onate</p>
+                  <div class="paper-meta"><span>Pages 30–42</span><span>Vol. 2, No. 1</span></div>
+                </div>
+                <a class="pdf-btn" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/118/83" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+                  PDF
+                </a>
+              </li>
+              <li class="paper" data-search="harnessing the gut microbiome for chronic disease management and public health a systematic literature review kayode omowunmi ahmed tolulope ayokunle esan">
+                <span class="paper-num">02</span>
+                <div>
+                  <a class="paper-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/91" target="_blank" rel="noopener">Harnessing the Gut Microbiome for Chronic Disease Management and Public Health: A Systematic Literature Review</a>
+                  <p class="paper-authors">Kayode Omowunmi Ahmed, Tolulope Ayokunle Esan</p>
+                  <div class="paper-meta"><span>Pages 1–23</span><span>Vol. 2, No. 1</span></div>
+                </div>
+                <a class="pdf-btn" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/91/81" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+                  PDF
+                </a>
+              </li>
+              <li class="paper" data-search="a rare cause of massive intraabdominal mass a challenging exploratory laparotomy qozeem opeyemi asafa gbenro seun akintola aishat omowumi asafa olumuyiwa tope ajayeoba emmanuel oladayo folami adedire adejare">
+                <span class="paper-num">03</span>
+                <div>
+                  <a class="paper-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/93" target="_blank" rel="noopener">A Rare Cause of Massive Intraabdominal Mass: A Challenging Exploratory Laparotomy</a>
+                  <p class="paper-authors">Qozeem Opeyemi Asafa, Gbenro Seun Akintola, Aishat Omowumi Asafa, Olumuyiwa Tope Ajayeoba, Emmanuel Oladayo Folami, Adedire Adejare</p>
+                  <div class="paper-meta"><span>Pages 24–29</span><span>Vol. 2, No. 1</span></div>
+                </div>
+                <a class="pdf-btn" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/93/82" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+                  PDF
+                </a>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <!-- 2025 -->
+      <div class="year-group" data-year="2025">
+        <div class="year-heading"><h3>2025</h3></div>
+
+        <!-- Vol 1 No 1 -->
+        <article class="issue-card" data-year="2025">
+          <aside class="issue-aside">
+            <div class="cover placeholder"><img src="assets/logo.png" alt="EJMSD journal logo"></div>
+            <div>
+              <span class="issue-label">Vol. 1 · No. 1</span>
+              <div class="issue-vol">November 2025</div>
+            </div>
+            <a class="issue-view" href="https://journal.elicitpublisher.com/index.php/ejmsd/issue/view/5" target="_blank" rel="noopener">
+              View issue
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </aside>
+          <div class="issue-main">
+            <div class="issue-top">
+              <h3>Elicit Journal of Medical Science and Discovery</h3>
+              <span class="issue-date">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+                19 Nov 2025
+              </span>
+            </div>
+            <p class="issue-count">1 article</p>
+            <ul class="paper-list">
+              <li class="paper" data-search="relationship between scripture memorization and hippocampal amgydalae volumes using magnetic resonance imaging mukaila rahman benjamin segun aribisala irfan ullah hammad">
+                <span class="paper-num">01</span>
+                <div>
+                  <a class="paper-title" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/19" target="_blank" rel="noopener">Relationship between Scripture Memorization and Hippocampal-Amgydalae Volumes Using Magnetic Resonance Imaging</a>
+                  <p class="paper-authors">Mukaila Rahman, Benjamin Segun Aribisala, Irfan Ullah, Hammad</p>
+                  <div class="paper-meta"><span>Pages 1–12</span><span>Vol. 1, No. 1</span></div>
+                </div>
+                <a class="pdf-btn" href="https://journal.elicitpublisher.com/index.php/ejmsd/article/view/19/10" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+                  PDF
+                </a>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="empty" id="emptyState" hidden>
+        <strong>No papers found</strong>
+        Try a different title, author, or year.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="about-band" id="about">
+    <div class="wrap">
+      <div class="about-card">
+        <div class="about-media">
+          <img src="assets/hero.jpg" alt="Medical science and discovery">
+          <p class="quote">“Bridging laboratory discoveries and clinical applications for better human health.”</p>
+        </div>
+        <div class="about-body">
+          <span class="kicker">About the journal</span>
+          <h2>A global forum for medical discovery</h2>
+          <p>
+            The <strong>Elicit Journal of Medical Science and Discovery (EJMSD)</strong> is a peer-reviewed,
+            open-access scholarly journal published by <strong>Elicit Publishing Limited</strong>. It publishes
+            original research, critical reviews, clinical studies, case reports and innovative methodologies
+            that advance the understanding, prevention, diagnosis and treatment of human disease.
+          </p>
+          <p>
+            EJMSD is committed to high-quality, evidence-based research that bridges laboratory discovery and
+            clinical application, promoting health innovation, global healthcare solutions and sustainable
+            medical practice.
+          </p>
+          <div class="scope" aria-label="Journal scope">
+            <span>Basic medical sciences</span>
+            <span>Clinical medicine</span>
+            <span>Public &amp; global health</span>
+            <span>Biomedical innovation</span>
+            <span>Translational medicine</span>
+            <span>Medical education</span>
+          </div>
+          <div class="about-links">
+            <a class="text-link" href="https://journal.elicitpublisher.com/index.php/ejmsd/about" target="_blank" rel="noopener">
+              Read the full scope
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="text-link" href="https://journal.elicitpublisher.com/index.php/ejmsd/about/submissions" target="_blank" rel="noopener">Author guidelines</a>
+            <a class="text-link" href="https://journal.elicitpublisher.com/index.php/ejmsd/about/editorialMasthead" target="_blank" rel="noopener">Editorial masthead</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="#top">
+          <img src="assets/logo.png" alt="EJMSD logo">
+        </a>
+        <p class="footer-about">
+          Elicit Journal of Medical Science and Discovery — an open-access, peer-reviewed journal
+          published by Elicit Publishing Limited.
+        </p>
+      </div>
+      <div>
+        <h4>Journal</h4>
+        <ul>
+          <li><a href="#current">Current issue</a></li>
+          <li><a href="#archive">Archives</a></li>
+          <li><a href="#about">About the journal</a></li>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/about/submissions" target="_blank" rel="noopener">Submissions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/issue/archive" target="_blank" rel="noopener">All issues</a></li>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/search" target="_blank" rel="noopener">Search articles</a></li>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/about/editorialMasthead" target="_blank" rel="noopener">Editorial board</a></li>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/about/privacy" target="_blank" rel="noopener">Privacy statement</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/about/contact" target="_blank" rel="noopener">Contact the journal</a></li>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/user/register" target="_blank" rel="noopener">Register</a></li>
+          <li><a href="https://journal.elicitpublisher.com/index.php/ejmsd/login" target="_blank" rel="noopener">Login</a></li>
+          <li><a href="https://elicitpublisher.com" target="_blank" rel="noopener">Elicit Publishing</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year">2026</span> Elicit Journal of Medical Science and Discovery. All rights reserved.</span>
+      <span class="footer-note"><span></span> Source: <a href="https://journal.elicitpublisher.com/index.php/ejmsd/" target="_blank" rel="noopener">journal.elicitpublisher.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile navigation
+  const navToggle = document.getElementById('navToggle');
+  const primaryNav = document.getElementById('primaryNav');
+  navToggle.addEventListener('click', () => {
+    const open = primaryNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+  primaryNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      primaryNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Archive filtering
+  const searchInput = document.getElementById('searchInput');
+  const yearButtons = [...document.querySelectorAll('.year-filters button')];
+  const issueCards = [...document.querySelectorAll('.issue-card')];
+  const yearGroups = [...document.querySelectorAll('.year-group')];
+  const shownCount = document.getElementById('shownCount');
+  const emptyState = document.getElementById('emptyState');
+  let activeYear = 'all';
+
+  function applyFilters() {
+    const query = searchInput.value.trim().toLowerCase();
+    let total = 0;
+
+    issueCards.forEach(card => {
+      const yearMatch = activeYear === 'all' || card.dataset.year === activeYear;
+      const papers = [...card.querySelectorAll('.paper')];
+      let visible = 0;
+
+      papers.forEach(paper => {
+        const matches = yearMatch && (query === '' || paper.dataset.search.includes(query));
+        paper.hidden = !matches;
+        if (matches) visible++;
+      });
+
+      card.hidden = visible === 0;
+      total += visible;
+
+      const count = card.querySelector('.issue-count');
+      if (count) count.textContent = visible + (visible === 1 ? ' article' : ' articles');
+    });
+
+    yearGroups.forEach(group => {
+      const hasVisible = [...group.querySelectorAll('.issue-card')].some(c => !c.hidden);
+      group.hidden = !hasVisible;
+    });
+
+    shownCount.textContent = total;
+    emptyState.hidden = total > 0;
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  yearButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      activeYear = button.dataset.year;
+      yearButtons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+      applyFilters();
+    });
+  });
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

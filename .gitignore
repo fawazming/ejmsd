@@ -1,0 +1,4 @@
+# Local tooling / OS files
+.opencode/
+Thumbs.db
+.DS_Store
